@@ -1,3 +1,5 @@
-<p>
-  task-list works!
-</p>
+<ul>
+    <app-task *ngFor="let task of tasks" [task]="task" (Delete)="deleteTask($event)"></app-task>
+</ul>
+
+

@@ -1,3 +1,4 @@
-<p>
-  input-form works!
-</p>
+<div class="form">
+  <input name="text" [(ngModel)]="text" (keydown.enter)="addData()">
+  <button (click)="addData()">add</button>
+</div>

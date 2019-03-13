@@ -8,6 +8,9 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { InputFormComponent } from './input-form/input-form.component';
 import { ListsComponent } from './lists/lists.component';
 import { TasksMainComponent } from './tasks-main/tasks-main.component';
+import { ListComponent } from './list/list.component';
+import { FormsModule } from '@angular/forms';
+import { TodoService } from './todo.service';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,15 @@ import { TasksMainComponent } from './tasks-main/tasks-main.component';
     TaskListComponent,
     InputFormComponent,
     ListsComponent,
-    TasksMainComponent
+    TasksMainComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,6 @@
-<p>
-  lists works!
-</p>
+<ul class="lists">
+  <app-list *ngFor="let list of lists" [list]="list" (Delete)="deleteList($event)"  (Switch)="switchList($event)"></app-list>
+  <app-input-form (Add)="addList($event)"></app-input-form>
+</ul>
+
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input-form',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./input-form.component.scss']
 })
 export class InputFormComponent implements OnInit {
+  text = '';
 
-  constructor() { }
+  @Output()
+  Add = new EventEmitter<string>();
 
   ngOnInit() {
+  }
+
+  addData() {
+    this.Add.emit(this.text);
+    this.text = '';
   }
 
 }

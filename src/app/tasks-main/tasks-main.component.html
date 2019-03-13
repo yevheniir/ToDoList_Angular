@@ -1,3 +1,4 @@
-<p>
-  tasks-main works!
-</p>
+<div class="tasks-main">
+  <app-input-form (Add)="addTask($event)"></app-input-form>
+  <app-task-list [tasks] ="currentTasks" (Delete)="deleteTask($event)"></app-task-list>
+</div>
