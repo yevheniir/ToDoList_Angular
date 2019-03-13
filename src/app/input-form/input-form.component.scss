@@ -1,0 +1,21 @@
+.form {
+  width: 100%;
+  border: 1px solid white;
+
+  input {
+    width: 80%;
+    height: 70px;
+    background-color: #1A1A1A;
+    color: rgb(201, 201, 201);
+    font-size: 40px;
+  }
+
+  button {
+    width: 20%;
+    height: 70px;
+    background-color: #1A1A1A;
+    color: rgb(201, 201, 201);
+    vertical-align: top;
+    font-size: 25px;
+  }
+}

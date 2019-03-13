@@ -11,6 +11,9 @@ export class ListComponent implements OnInit {
   @Input()
   list: {id: string};
 
+  @Input()
+  active: {id: string};
+
   @Output()
   Delete = new EventEmitter<{id: string}>();
 

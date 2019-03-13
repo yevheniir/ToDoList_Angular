@@ -9,8 +9,8 @@ export class TodoService {
   ];
 
   tasks = [
-    {listId: 'mainList', id: 1, text: 'first task', complete: true},
-    {listId: 'mainList', id: 2, text: 'second task', complete: false},
+    {listId: 'mainList', id: 0, text: 'first task', complete: true},
+    {listId: 'mainList', id: 1, text: 'second task', complete: false},
   ];
 
   currentList = this.lists[0] || {id: 'mainList'};
@@ -36,5 +36,17 @@ export class TodoService {
 
   switchList(list: {id: string}) {
     this.currentList = list;
+  }
+
+  switchComplete(task: {listId: string, id: number, text: string, complete: boolean}) {
+    this.tasks[this.tasks.indexOf(task)].complete = !this.tasks[this.tasks.indexOf(task)].complete;
+  }
+
+  changeTask(newTask: {listId: string, id: number, text: string, complete: boolean}) {
+    for (const task of this.tasks) {
+      if (task.id === newTask.id) {
+        task.text = newTask.text;
+      }
+    }
   }
 }

@@ -1,5 +1,8 @@
 <ul>
-    <app-task *ngFor="let task of tasks" [task]="task" (Delete)="deleteTask($event)"></app-task>
+    <app-task *ngFor="let task of tasks" [task]="task"
+     (Delete)="deleteTask($event)"
+     (SwitchComplete)="switchComplete($event)"
+     (Change)="changeTask($event)"></app-task>
 </ul>
 
 

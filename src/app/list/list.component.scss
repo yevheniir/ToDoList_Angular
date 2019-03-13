@@ -1,8 +1,21 @@
 li{
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  border: 1px solid white;
+  font-size: 3vw;
   cursor: pointer;
-  margin: 10px;
+  margin: 0;
+  padding: 0;
   list-style: none;
+  span{
+    padding: 5px;
+  }
   button {
+    font-size: 25px;
     cursor: pointer;
   }
+}
+
+.active {
+  background-color: #292929;
 }

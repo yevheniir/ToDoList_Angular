@@ -8,11 +8,13 @@ import { TodoService } from '../todo.service';
 })
 export class ListsComponent implements OnInit {
   lists: {id: string}[];
+  active: {id: string};
 
   constructor(private toDoService: TodoService) { }
 
   ngOnInit() {
     this.lists = this.toDoService.lists;
+    this.active = this.toDoService.currentList;
   }
 
   addList(listText: string) {

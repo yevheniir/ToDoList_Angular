@@ -34,4 +34,12 @@ export class TasksMainComponent implements OnInit, DoCheck {
     this.toDoService.deleteTask(task);
   }
 
+  switchComplete(task: {listId: string, id: number, text: string, complete: boolean}) {
+    this.toDoService.switchComplete(task);
+  }
+
+  changeTask(task: {listId: string, id: number, text: string, complete: boolean}) {
+    this.toDoService.changeTask(task);
+  }
+
 }

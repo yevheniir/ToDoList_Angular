@@ -12,6 +12,12 @@ export class TaskListComponent implements OnInit {
   @Output()
   Delete = new EventEmitter<{listId: string, id: number, text: string, complete: boolean}>();
 
+  @Output()
+  SwitchComplete = new EventEmitter<{listId: string, id: number, text: string, complete: boolean}>();
+
+  @Output()
+  Change = new EventEmitter<{listId: string, id: number, text: string, complete: boolean}>();
+
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +25,14 @@ export class TaskListComponent implements OnInit {
 
   deleteTask(task: {listId: string, id: number, text: string, complete: boolean}) {
     this.Delete.emit(task);
+  }
+
+  switchComplete(task: {listId: string, id: number, text: string, complete: boolean}) {
+    this.SwitchComplete.emit(task);
+  }
+
+  changeTask(task: {listId: string, id: number, text: string, complete: boolean}) {
+    this.Change.emit(task);
   }
 
 }

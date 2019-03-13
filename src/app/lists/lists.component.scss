@@ -1,0 +1,13 @@
+ul {
+  padding: 0;
+  border: 1px solid white;
+  margin: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  position:relative;
+  .formInput{
+    height:10%;
+    position:absolute;
+    bottom:0px;
+  }
+}

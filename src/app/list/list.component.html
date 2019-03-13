@@ -1,4 +1,4 @@
-<li (click)="switchList()">
-  {{list.id}}
+<li (click)="switchList()" routerLink="/{{list.id}}" [ngClass]="{'active': active === list}">
+  <span>{{list.id}}</span>
   <button (click)="deleteList()">del</button>
 </li>

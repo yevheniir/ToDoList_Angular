@@ -1,6 +1,10 @@
 <ul class="lists">
-  <app-list *ngFor="let list of lists" [list]="list" (Delete)="deleteList($event)"  (Switch)="switchList($event)"></app-list>
-  <app-input-form (Add)="addList($event)"></app-input-form>
+  <app-list *ngFor="let list of lists" [list]="list" [active]="active"
+  (Delete)="deleteList($event)"
+  (Switch)="switchList($event)"></app-list>
+  <div class="formInput">
+      <app-input-form (Add)="addList($event)"></app-input-form>
+  </div>
 </ul>
 
 

@@ -1,5 +1,14 @@
 <li>
-  <input type="checkbox" [checked]="task.complete">
-  <span>{{task.text}}</span>
-  <button (click)="deleteTask()">del</button>
+  <ng-container *ngIf="changing; else elseTemplate">
+      <button (click)="cancelChanging()">cencel</button>
+      <input class="text" #inputText type="text" autofocus [value]="task.text"
+      (keydown.enter)="changeTask(inputText.value)"
+      (keydown.esc)="cancelChanging()">
+      <button (click)="changeTask(inputText.value)">ok</button>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <input class="check" type="checkbox" [checked]="task.complete" (change)="switchComplete()">
+    <span (click)="startChanging()">{{task.text}}</span>
+    <button (click)="deleteTask()">del</button>
+  </ng-template>
 </li>
