@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lists',
@@ -7,13 +8,24 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent implements OnInit {
-  lists: {id: string}[];
+  lists: any = [];
+  lists$: Subject<Array<any>>;
   active: {id: string};
 
-  constructor(private toDoService: TodoService) { }
+  constructor(private toDoService: TodoService) {
+    this.lists$ = new Subject<Array<any>>();
+   }
 
   ngOnInit() {
-    this.lists = this.toDoService.lists;
+    this.lists$.subscribe(console.dir);
+
+    setTimeout(() => {
+      this.lists$.next([{id: 'mainList'}, {id: 'mainList'}, {id: 'mainList'}, {id: 'mainList'}]);
+    }, 0);
+
+    this.toDoService.lists.subscribe((val: any) => {
+        this.lists = val;
+    });
     this.active = this.toDoService.currentList;
   }
 

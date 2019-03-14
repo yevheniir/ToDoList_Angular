@@ -11,6 +11,7 @@ import { TasksMainComponent } from './tasks-main/tasks-main.component';
 import { ListComponent } from './list/list.component';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from './todo.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TodoService } from './todo.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./tasks-main.component.scss']
 })
 export class TasksMainComponent implements OnInit, DoCheck {
-  tasks: {listId: string, id: number, text: string, complete: boolean}[];
+  tasks: {listId: string, id: number, text: string, complete: boolean}[] = [];
   currentTasks: {listId: string, id: number, text: string, complete: boolean}[];
 
   constructor(private toDoService: TodoService) { }
@@ -19,7 +19,9 @@ export class TasksMainComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.tasks = this.toDoService.tasks;
+     this.toDoService.tasks.subscribe((task: any) => {
+      this.tasks.push(task);
+    });
   }
 
   addTask(taskText: string) {
