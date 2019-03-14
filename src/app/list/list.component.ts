@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 
 @Component({
@@ -17,20 +17,13 @@ export class ListComponent implements OnInit {
   @Output()
   Delete = new EventEmitter<{id: string}>();
 
-  @Output()
-  Switch = new EventEmitter<{id: string}>();
-
   constructor() { }
 
   ngOnInit() {
+
   }
 
   deleteList() {
     this.Delete.emit(this.list);
   }
-
-  switchList() {
-    this.Switch.emit(this.list);
-  }
-
 }

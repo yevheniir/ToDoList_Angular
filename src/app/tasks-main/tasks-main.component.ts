@@ -13,14 +13,18 @@ export class TasksMainComponent implements OnInit, DoCheck {
   constructor(private toDoService: TodoService) { }
 
   ngDoCheck() {
-    this.currentTasks = this.tasks.filter((task) => {
-      return task.listId === this.toDoService.currentList.id;
-    });
+    if (this.toDoService.currentList.id === '') {
+      this.currentTasks = this.tasks;
+    } else {
+      this.currentTasks = this.tasks.filter((task) => {
+        return task.listId === this.toDoService.currentList.id;
+      });
+    }
   }
 
   ngOnInit() {
      this.toDoService.tasks.subscribe((task: any) => {
-      this.tasks.push(task);
+      this.tasks = task;
     });
   }
 
@@ -37,6 +41,7 @@ export class TasksMainComponent implements OnInit, DoCheck {
   }
 
   switchComplete(task: {listId: string, id: number, text: string, complete: boolean}) {
+    task.complete = !task.complete;
     this.toDoService.switchComplete(task);
   }
 

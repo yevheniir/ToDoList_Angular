@@ -1,43 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { EventHandler } from './EventHandler';
+import { Event } from './Event';
+import { ListReducer } from './reducers/listReducer';
+import { TaskReducer } from './reducers/taskReducer';
+import { Router } from '@angular/router';
 
-class Event {
-  type: string;
-  payload: any;
-  constructor(type: string, payload: any) {
-    this.type = type;
-    this.payload = payload;
-  }
-}
-class EventHandler {
-  currentMass: any;
-  mass: any;
-
-  constructor(mass) {
-    this.mass = mass;
-    mass.subscribe((val) => {
-      this.currentMass = val;
-    });
-  }
-
-  use(event: Event) {
-    switch (event.type) {
-      case 'ADD_ALL':
-        this.mass.next( event.payload );
-        break;
-      case 'ADD':
-        this.mass.next( [...this.currentMass, event.payload] );
-        break;
-      case 'DELETE':
-        let newMass = this.currentMass.filter((el: any) => {
-          return el.id !== event.payload.id;
-        });
-        this.mass.next( [...newMass] );
-        break;
-    }
-  }
-}
 
 @Injectable({
   providedIn: 'root'
@@ -45,30 +14,32 @@ class EventHandler {
 export class TodoService {
 
   tasks = new Subject();
-
   lists = new Subject();
 
-  currentList = this.lists[0] || {id: 'mainList'};
+  currentList: any = {id: ''};
 
+  // currentList = this.lists[0] || {id: 'mainList'};
 
-  listsHandler = new EventHandler(this.lists);
+  listsHandler = new EventHandler(this.lists, new ListReducer());
+  tasksHandler = new EventHandler(this.tasks, new TaskReducer());
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.http.get('http://localhost:3000/lists').subscribe(lists => {
       this.listsHandler.use(new Event('ADD_ALL', lists));
     });
 
     this.http.get('http://localhost:3000/tasks').subscribe(tasks => {
-      // tslint:disable-next-line:forin
-      for (const task in tasks) {
-        this.tasks.next(tasks[task]);
-      }
+      this.tasksHandler.use(new Event('ADD_ALL', tasks));
+    });
+
+    this.router.events.subscribe((rout) => {
+      this.currentList = {id: this.router.url.slice(1, this.router.url.length)};
     });
   }
 
   addList(list: {id: string}) {
     this.http.post('http://localhost:3000/lists', list).subscribe(res => {
-      this.listsHandler.use(new Event('ADD', list));
+      this.listsHandler.use(new Event('ADD', res));
     },
     err => { console.log(err); });
   }
@@ -82,27 +53,32 @@ export class TodoService {
   }
 
   addTask(task: {listId: string, text: string, complete: boolean}) {
-    // this.tasks.push({...task, id: this.currentTaskId++});
+    this.http.post('http://localhost:3000/tasks', task).subscribe(res => {
+      this.tasksHandler.use(new Event('ADD', res));
+    },
+    err => { console.log(err); });
   }
 
   deleteTask(task: {listId: string, id: number, text: string, complete: boolean}) {
-    // this.tasks.splice(this.tasks.indexOf(task), 1);
+    this.http.delete(`http://localhost:3000/tasks/${task.id}`).subscribe(res => {
+      this.tasksHandler.use(new Event('DELETE', task));
+    },
+    err => { console.log(err); });
   }
 
-  switchList(list: {id: string}) {
-    this.currentList = list;
-  }
 
   switchComplete(task: {listId: string, id: number, text: string, complete: boolean}) {
-    // this.tasks[this.tasks.indexOf(task)].complete = !this.tasks[this.tasks.indexOf(task)].complete;
+    this.http.put(`http://localhost:3000/tasks/${task.id}`, task).subscribe(res => {
+      this.tasksHandler.use(new Event('CHANGE', res));
+    },
+    err => { console.log(err); });
   }
 
   changeTask(newTask: {listId: string, id: number, text: string, complete: boolean}) {
-    // for (const task of this.tasks) {
-    //   if (task.id === newTask.id) {
-    //     task.text = newTask.text;
-    //   }
-    // }
+    this.http.put(`http://localhost:3000/tasks/${newTask.id}`, newTask).subscribe(res => {
+      this.tasksHandler.use(new Event('CHANGE', res));
+    },
+    err => { console.log(err); });
   }
 }
 

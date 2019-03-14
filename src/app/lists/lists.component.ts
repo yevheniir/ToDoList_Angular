@@ -9,24 +9,13 @@ import { Subject } from 'rxjs';
 })
 export class ListsComponent implements OnInit {
   lists: any = [];
-  lists$: Subject<Array<any>>;
-  active: {id: string};
 
-  constructor(private toDoService: TodoService) {
-    this.lists$ = new Subject<Array<any>>();
-   }
+  constructor(private toDoService: TodoService) {}
 
   ngOnInit() {
-    this.lists$.subscribe(console.dir);
-
-    setTimeout(() => {
-      this.lists$.next([{id: 'mainList'}, {id: 'mainList'}, {id: 'mainList'}, {id: 'mainList'}]);
-    }, 0);
-
     this.toDoService.lists.subscribe((val: any) => {
         this.lists = val;
     });
-    this.active = this.toDoService.currentList;
   }
 
   addList(listText: string) {
@@ -35,10 +24,6 @@ export class ListsComponent implements OnInit {
 
   deleteList(list: {id: string}) {
     this.toDoService.deleteList(list);
-  }
-
-  switchList(list: {id: string}) {
-    this.toDoService.switchList(list);
   }
 
 }

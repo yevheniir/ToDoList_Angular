@@ -1,4 +1,4 @@
-<li>
+<li [ngClass]="{'complete': task.complete}">
   <ng-container *ngIf="changing; else elseTemplate">
       <button (click)="cancelChanging()">cencel</button>
       <input class="text" #inputText type="text" autofocus [value]="task.text"

@@ -1,7 +1,6 @@
 <ul class="lists">
-  <app-list *ngFor="let list of lists" [list]="list" [active]="active"
-  (Delete)="deleteList($event)"
-  (Switch)="switchList($event)"></app-list>
+  <app-list *ngFor="let list of lists" [list]="list" [active]="toDoService.currentList"
+  (Delete)="deleteList($event)"></app-list>
   <div class="formInput">
       <app-input-form (Add)="addList($event)"></app-input-form>
   </div>
