@@ -9,12 +9,25 @@ import { Subject } from 'rxjs';
 })
 export class ListsComponent implements OnInit {
   lists: any = [];
+  tasks: any = [];
 
   constructor(private toDoService: TodoService) {}
 
   ngOnInit() {
+    try {
+      this.lists = this.toDoService.listsHandler.getMass();
+    } catch {}
+
     this.toDoService.lists.subscribe((val: any) => {
         this.lists = val;
+    });
+
+    try {
+      this.tasks = this.toDoService.tasksHandler.getMass();
+    } catch {}
+
+    this.toDoService.tasks.subscribe((tasks) => {
+      this.tasks = tasks;
     });
   }
 

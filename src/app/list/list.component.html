@@ -1,4 +1,11 @@
-<li routerLink="/{{list.id}}" [ngClass]="{'active': active.id == list.id}">
-  <span>{{list.id}}</span>
-  <button (click)="deleteList()">del</button>
-</li>
+<div class="card" routerLink="/{{list.id}}" [ngClass]="{'active': active.id == list.id}">
+  <div class="list-name">
+      <span>{{list.id}}</span>
+  <button (click)="deleteList($event)">del</button>
+  </div>
+  <div class="tasks">
+    <p *ngFor="let task of tasks | filter : list">
+      {{task.text}}
+    </p>
+  </div>
+</div>

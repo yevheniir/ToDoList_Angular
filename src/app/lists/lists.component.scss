@@ -1,4 +1,7 @@
-ul {
+.lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
   padding: 0;
   border: 1px solid white;
   margin: 0;
@@ -7,7 +10,6 @@ ul {
   position:relative;
   .formInput{
     height:10%;
-    position:absolute;
-    bottom:0px;
+    width: 100%;
   }
 }

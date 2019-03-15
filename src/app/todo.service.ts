@@ -16,7 +16,7 @@ export class TodoService {
   tasks = new Subject();
   lists = new Subject();
 
-  currentList: any = {id: ''};
+  currentList: {id: string};
 
   // currentList = this.lists[0] || {id: 'mainList'};
 
@@ -65,7 +65,6 @@ export class TodoService {
     },
     err => { console.log(err); });
   }
-
 
   switchComplete(task: {listId: string, id: number, text: string, complete: boolean}) {
     this.http.put(`http://localhost:3000/tasks/${task.id}`, task).subscribe(res => {

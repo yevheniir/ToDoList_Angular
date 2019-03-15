@@ -1,6 +1,15 @@
-li{
+.card{
+
+  height: 33vh;
   display: grid;
-  grid-template-columns: 8fr 2fr;
+  grid-template-rows: 2fr 8fr;
+
+  .list-name {
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+    border: 1px solid white;
+  }
+
   border: 1px solid white;
   font-size: 3vw;
   cursor: pointer;
@@ -8,12 +17,28 @@ li{
   padding: 0;
   list-style: none;
   span{
+    text-align: center;
     padding: 5px;
   }
   button {
     font-size: 25px;
     cursor: pointer;
   }
+
+  p {
+    font-size: 80%;
+    background: rgb(48, 48, 48);
+    text-align: center;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.089);
+  }
+
+  .tasks {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    height: 100%;
+  }
+
 }
 
 .active {

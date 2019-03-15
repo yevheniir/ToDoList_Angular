@@ -1,4 +1,8 @@
 <div class="tasks-main">
+  <header>
+    <button routerLink="">back</button>
+    <h1>{{toDoService.currentList.id}}</h1>
+  </header>
   <app-input-form (Add)="addTask($event)"></app-input-form>
   <app-task-list [tasks] ="currentTasks"
   (Delete)="deleteTask($event)"

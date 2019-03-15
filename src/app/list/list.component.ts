@@ -14,16 +14,24 @@ export class ListComponent implements OnInit {
   @Input()
   active: {id: string};
 
+  @Input()
+  tasks: any = [];
+
   @Output()
   Delete = new EventEmitter<{id: string}>();
 
-  constructor() { }
+  uncompletedTasks = this.tasks.filter((task) => {
+      return true;
+    });
 
-  ngOnInit() {
-
+  constructor() {
   }
 
-  deleteList() {
+  ngOnInit() {
+  }
+
+  deleteList(event) {
+    event.stopPropagation();
     this.Delete.emit(this.list);
   }
 }

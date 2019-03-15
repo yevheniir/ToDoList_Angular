@@ -3,3 +3,18 @@
   height: 100vh;
   box-sizing: border-box;
 }
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+
+  h1 {
+    text-align: center;
+    margin: 5px;
+    font-size: 50px;
+  }
+
+  button {
+    font-size: 25px;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -6,25 +6,24 @@ import { TodoService } from '../todo.service';
   templateUrl: './tasks-main.component.html',
   styleUrls: ['./tasks-main.component.scss']
 })
-export class TasksMainComponent implements OnInit, DoCheck {
+export class TasksMainComponent implements OnInit {
   tasks: {listId: string, id: number, text: string, complete: boolean}[] = [];
   currentTasks: {listId: string, id: number, text: string, complete: boolean}[];
 
   constructor(private toDoService: TodoService) { }
 
-  ngDoCheck() {
-    if (this.toDoService.currentList.id === '') {
-      this.currentTasks = this.tasks;
-    } else {
-      this.currentTasks = this.tasks.filter((task) => {
+  ngOnInit() {
+    try {
+      this.currentTasks = this.toDoService.tasksHandler.getMass().filter((task) => {
         return task.listId === this.toDoService.currentList.id;
       });
-    }
-  }
+    } catch {}
 
-  ngOnInit() {
-     this.toDoService.tasks.subscribe((task: any) => {
+    this.toDoService.tasks.subscribe((task: any) => {
       this.tasks = task;
+      this.currentTasks = this.tasks.filter((CureentTask) => {
+        return CureentTask.listId === this.toDoService.currentList.id;
+      });
     });
   }
 

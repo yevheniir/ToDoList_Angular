@@ -12,6 +12,7 @@ import { ListComponent } from './list/list.component';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from './todo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterPipe } from './list/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     InputFormComponent,
     ListsComponent,
     TasksMainComponent,
-    ListComponent
+    ListComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
