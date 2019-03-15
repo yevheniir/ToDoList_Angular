@@ -19,3 +19,8 @@ header {
     font-size: 25px;
   }
 }
+
+.container {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+}

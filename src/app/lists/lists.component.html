@@ -1,6 +1,7 @@
 <div class="lists">
-  <app-list *ngFor="let list of lists" [list]="list" [active]="toDoService.currentList" [tasks]="tasks"
-  (Delete)="deleteList($event)"></app-list>
+  <app-list *ngFor="let list of lists | pin" [list]="list" [active]="toDoService.currentListHandler.getMass()" [tasks]="tasks"
+  (Delete)="deleteList($event)"
+  (Change)="changeList($event)"></app-list>
   <div class="formInput">
       <app-input-form (Add)="addList($event)" [len]='20'></app-input-form>
   </div>

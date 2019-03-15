@@ -15,6 +15,15 @@ export class ListReducer implements Reducer {
           return el.id !== event.payload.id;
         });
         return [...newMass];
+
+      case 'CHANGE':
+        const changedMass = mass.map((el: any) => {
+          if (el.id === event.payload.id) {
+            el = event.payload;
+          }
+          return el;
+        });
+        return [...changedMass];
     }
   }
 }

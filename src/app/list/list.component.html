@@ -1,7 +1,14 @@
 <div class="card" routerLink="/{{list.id}}" [ngClass]="{'active': active.id == list.id}">
   <div class="list-name">
-      <span>{{list.id}}</span>
-  <button (click)="deleteList($event)">del</button>
+    <ng-container *ngIf="list.pin; else elseTemplate">
+        <img (click)="switchPin()" height="60px" width="60px" src="http://www.pngmart.com/files/3/Star-PNG-Image.png" alt="">
+    </ng-container>
+    <ng-template #elseTemplate>
+        <img (click)="switchPin()" height="60px" width="60px" src="http://www.pngmart.com/files/8/Floating-Stars-PNG-Photo.png" alt="">
+    </ng-template>
+
+    <span>{{list.id}}</span>
+    <button (click)="deleteList($event)">del</button>
   </div>
   <div class="tasks">
     <p *ngFor="let task of tasks | filter : list">

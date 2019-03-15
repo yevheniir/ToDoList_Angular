@@ -1,6 +1,7 @@
 .lists {
+  overflow: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 
   padding: 0;
   border: 1px solid white;

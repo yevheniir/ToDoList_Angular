@@ -9,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 export class ListComponent implements OnInit {
 
   @Input()
-  list: {id: string};
+  list: {id: string, pin: boolean};
 
   @Input()
   active: {id: string};
@@ -18,7 +18,10 @@ export class ListComponent implements OnInit {
   tasks: any = [];
 
   @Output()
-  Delete = new EventEmitter<{id: string}>();
+  Delete = new EventEmitter<{id: string, pin: boolean}>();
+
+  @Output()
+  Change = new EventEmitter<{id: string, pin: boolean}>();
 
   uncompletedTasks = this.tasks.filter((task) => {
       return true;
@@ -33,5 +36,10 @@ export class ListComponent implements OnInit {
   deleteList(event) {
     event.stopPropagation();
     this.Delete.emit(this.list);
+  }
+
+  switchPin() {
+    event.stopPropagation();
+    this.Change.emit({...this.list, pin: !this.list.pin});
   }
 }

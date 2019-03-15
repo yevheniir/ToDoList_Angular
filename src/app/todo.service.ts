@@ -17,10 +17,11 @@ export class TodoService {
   lists = new Subject();
   error = new Subject();
 
-  currentList: {id: string};
+  currentList = new Subject();
 
   listsHandler = new EventHandler(this.lists, new ListReducer());
   tasksHandler = new EventHandler(this.tasks, new TaskReducer());
+  currentListHandler = new EventHandler(this.currentList, new TaskReducer());
 
   constructor(private http: HttpClient, private router: Router) {
     this.http.get('http://localhost:3000/lists').subscribe(lists => {
@@ -32,11 +33,11 @@ export class TodoService {
     });
 
     this.router.events.subscribe((rout) => {
-      this.currentList = {id: this.router.url.slice(1, this.router.url.length)};
+      this.currentList.next({id: this.router.url.slice(1, this.router.url.length)});
     });
   }
 
-  addList(list: {id: string}) {
+  addList(list: {id: string, pin: boolean}) {
     this.http.post('http://localhost:3000/lists', list).subscribe(res => {
       this.listsHandler.use(new Event('ADD', res));
     },
@@ -45,9 +46,10 @@ export class TodoService {
     });
   }
 
-  deleteList(list: {id: string}) {
+  deleteList(list: {id: string, pin: boolean}) {
     this.http.delete(`http://localhost:3000/lists/${list.id}`).subscribe(res => {
-      this.currentList = list.id === this.currentList.id ? this.lists[0] || {id: 'mainList'} : this.currentList;
+      this.currentList.next(list.id === this.currentListHandler.getMass().id ? this.lists[0]
+      || {id: 'mainList'} : this.currentListHandler.getMass());
       this.listsHandler.use(new Event('DELETE', list));
     },
     err => { console.log(err); });
@@ -77,6 +79,13 @@ export class TodoService {
   changeTask(newTask: {listId: string, id: number, text: string, complete: boolean}) {
     this.http.put(`http://localhost:3000/tasks/${newTask.id}`, newTask).subscribe(res => {
       this.tasksHandler.use(new Event('CHANGE', res));
+    },
+    err => { console.log(err); });
+  }
+
+  changeList(list: {id: string, pin: boolean}) {
+    this.http.put(`http://localhost:3000/lists/${list.id}`, list).subscribe(res => {
+      this.listsHandler.use(new Event('CHANGE', res));
     },
     err => { console.log(err); });
   }

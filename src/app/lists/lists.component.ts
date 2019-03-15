@@ -29,11 +29,15 @@ export class ListsComponent implements OnInit {
   }
 
   addList(listText: string) {
-    this.toDoService.addList({id: listText});
+    this.toDoService.addList({id: listText, pin: false});
   }
 
-  deleteList(list: {id: string}) {
+  deleteList(list: {id: string, pin: boolean}) {
     this.toDoService.deleteList(list);
+  }
+
+  changeList(list: {id: string, pin: boolean}) {
+    this.toDoService.changeList(list);
   }
 
 }

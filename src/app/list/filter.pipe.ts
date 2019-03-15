@@ -13,7 +13,9 @@ export class FilterPipe implements PipeTransform {
     });
 
     if (filteredItems.length === 0) {
-      filteredItems = items;
+      filteredItems = items.filter( it => {
+        return it.listId === list.id;
+      });
     }
 
     if (filteredItems.length > 5) {

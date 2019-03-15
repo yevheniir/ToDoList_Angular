@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoService } from './todo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterPipe } from './list/filter.pipe';
+import { PinPipe } from './lists/pin.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FilterPipe } from './list/filter.pipe';
     ListsComponent,
     TasksMainComponent,
     ListComponent,
-    FilterPipe
+    FilterPipe,
+    PinPipe
   ],
   imports: [
     BrowserModule,
