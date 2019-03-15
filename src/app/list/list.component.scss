@@ -44,3 +44,11 @@
 .active {
   background-color: #292929;
 }
+
+.card > .list-name > button {
+  opacity: 0;
+}
+
+.card:hover > .list-name > button {
+  opacity: 1;
+}

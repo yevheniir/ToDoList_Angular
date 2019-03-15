@@ -34,3 +34,11 @@ li{
 .complete {
   background-color: rgb(104, 104, 104);
 }
+
+li > button {
+  opacity: 0;
+}
+
+li:hover > button {
+  opacity: 1;
+}
