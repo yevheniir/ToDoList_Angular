@@ -39,7 +39,7 @@ export class TodoService {
     this.http.post('http://localhost:3000/lists', list).subscribe(res => {
       this.listsHandler.use(new Event('ADD', res));
     },
-    err => { console.log(err); });
+    err => { console.log('You already have list with this name'); });
   }
 
   deleteList(list: {id: string}) {

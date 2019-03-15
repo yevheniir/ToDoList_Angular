@@ -16,5 +16,8 @@ body{
 }
 
 button {
+  &:hover {
+    background-color: rgb(65, 65, 65);
+  }
   font-family: 'Abril Fatface', cursive;
 }

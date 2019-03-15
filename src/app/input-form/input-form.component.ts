@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-input-form',
@@ -7,16 +7,37 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class InputFormComponent implements OnInit {
   text = '';
+  valid = true;
 
   @Output()
   Add = new EventEmitter<string>();
+
+  @Input()
+  len: number;
+
+  @Input()
+  errorText  = `lenght of text must be: 0 < text < ${this.len}`;
 
   ngOnInit() {
   }
 
   addData() {
-    this.Add.emit(this.text);
+    if (this.text.length > 0 && this.text.length < this.len) {
+      this.Add.emit(this.text);
+    } else {
+      this.valid = false;
+      this.errorText = `lenght of text must be: 0 < text < ${this.len}`;
+    }
     this.text = '';
+  }
+
+  onChange() {
+    if (this.text.length > 0 && this.text.length < this.len) {
+      this.valid = true;
+    } else {
+      this.valid = false;
+      this.errorText = `lenght of text must be: 0 < text < ${this.len}`;
+    }
   }
 
 }

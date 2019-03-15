@@ -3,7 +3,7 @@
     <button routerLink="">back</button>
     <h1>{{toDoService.currentList.id}}</h1>
   </header>
-  <app-input-form (Add)="addTask($event)"></app-input-form>
+  <app-input-form (Add)="addTask($event)" [len]='64'></app-input-form>
   <app-task-list [tasks] ="currentTasks"
   (Delete)="deleteTask($event)"
   (SwitchComplete)="switchComplete($event)"

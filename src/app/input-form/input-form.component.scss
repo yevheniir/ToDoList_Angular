@@ -12,11 +12,20 @@
   }
 
   button {
+    &:hover {
+      background-color: rgb(65, 65, 65);
+    }
+    cursor: pointer;
     width: 20%;
     height: 70px;
     background-color: #1A1A1A;
     color: rgb(201, 201, 201);
     vertical-align: top;
     font-size: 25px;
+  }
+
+  p {
+    color: red;
+    text-align: center;
   }
 }

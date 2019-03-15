@@ -1,4 +1,5 @@
 <div class="form">
-  <input name="text" [(ngModel)]="text" (keydown.enter)="addData()">
+  <input name="text" (input)="onChange()" [(ngModel)]="text" (keydown.enter)="addData()">
   <button (click)="addData()">add</button>
+  <p *ngIf="!valid">{{errorText}}</p>
 </div>

@@ -12,7 +12,7 @@ export class FilterPipe implements PipeTransform {
       return it.listId === list.id && it.complete === false;
     });
 
-    if (filteredItems.length >= 5) {
+    if (filteredItems.length > 5) {
       filteredItems = filteredItems.slice(0, 4);
       filteredItems.push({text: '...'});
     }
