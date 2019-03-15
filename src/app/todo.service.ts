@@ -15,6 +15,7 @@ export class TodoService {
 
   tasks = new Subject();
   lists = new Subject();
+  error = new Subject();
 
   currentList: {id: string};
 
@@ -39,7 +40,10 @@ export class TodoService {
     this.http.post('http://localhost:3000/lists', list).subscribe(res => {
       this.listsHandler.use(new Event('ADD', res));
     },
-    err => { console.log('You already have list with this name'); });
+    err => {
+      this.error.next('You already have list with this name');
+      console.log('You already have list with this name');
+    });
   }
 
   deleteList(list: {id: string}) {

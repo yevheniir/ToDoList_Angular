@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-input-form',
@@ -15,8 +16,14 @@ export class InputFormComponent implements OnInit {
   @Input()
   len: number;
 
-  @Input()
-  errorText  = `lenght of text must be: 0 < text < ${this.len}`;
+  errorText: any = `lenght of text must be: 0 < text < ${this.len}`;
+
+  constructor(private toDoService: TodoService) {
+    toDoService.error.subscribe((err) => {
+      this.valid = false;
+      this.errorText = err;
+    });
+  }
 
   ngOnInit() {
   }

@@ -17,7 +17,6 @@ export class ListsComponent implements OnInit {
 
     this.lists = this.toDoService.listsHandler.getMass();
 
-
     this.toDoService.lists.subscribe((val: any) => {
         this.lists = val;
     });
