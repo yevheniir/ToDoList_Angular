@@ -32,7 +32,11 @@ export class TaskComponent implements OnInit {
   }
 
   changeTask(newText: string) {
-    this.Change.emit({...this.task, text: newText});
+    if (newText.length > 0) {
+      this.Change.emit({...this.task, text: newText});
+    } else {
+      alert('Your new text < 0');
+    }
     this.changing = false;
   }
 

@@ -42,7 +42,6 @@ export class TodoService {
     },
     err => {
       this.error.next('You already have list with this name');
-      console.log('You already have list with this name');
     });
   }
 
