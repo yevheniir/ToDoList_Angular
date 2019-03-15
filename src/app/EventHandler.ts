@@ -2,7 +2,7 @@ import { Event } from './Event';
 import { Reducer } from './reducers/reducer';
 
 export class EventHandler {
-  currentMass: any;
+  currentMass: any = [];
   mass: any;
   reducer: Reducer;
 

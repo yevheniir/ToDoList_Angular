@@ -14,17 +14,15 @@ export class ListsComponent implements OnInit {
   constructor(private toDoService: TodoService) {}
 
   ngOnInit() {
-    try {
-      this.lists = this.toDoService.listsHandler.getMass();
-    } catch {}
+
+    this.lists = this.toDoService.listsHandler.getMass();
+
 
     this.toDoService.lists.subscribe((val: any) => {
         this.lists = val;
     });
 
-    try {
-      this.tasks = this.toDoService.tasksHandler.getMass();
-    } catch {}
+    this.tasks = this.toDoService.tasksHandler.getMass();
 
     this.toDoService.tasks.subscribe((tasks) => {
       this.tasks = tasks;

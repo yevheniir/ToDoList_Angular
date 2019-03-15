@@ -18,8 +18,6 @@ export class TodoService {
 
   currentList: {id: string};
 
-  // currentList = this.lists[0] || {id: 'mainList'};
-
   listsHandler = new EventHandler(this.lists, new ListReducer());
   tasksHandler = new EventHandler(this.tasks, new TaskReducer());
 

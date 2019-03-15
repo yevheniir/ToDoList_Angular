@@ -13,11 +13,10 @@ export class TasksMainComponent implements OnInit {
   constructor(private toDoService: TodoService) { }
 
   ngOnInit() {
-    try {
-      this.currentTasks = this.toDoService.tasksHandler.getMass().filter((task) => {
-        return task.listId === this.toDoService.currentList.id;
-      });
-    } catch {}
+
+    this.currentTasks = this.toDoService.tasksHandler.getMass().filter((task) => {
+      return task.listId === this.toDoService.currentList.id;
+    });
 
     this.toDoService.tasks.subscribe((task: any) => {
       this.tasks = task;
