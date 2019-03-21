@@ -24,11 +24,11 @@ export class TodoService {
   currentListHandler = new EventHandler(this.currentList, new TaskReducer());
 
   constructor(private http: HttpClient, private router: Router) {
-    this.http.get('http://localhost:3000/lists').subscribe(lists => {
+    this.http.get('http://localhost:8080/lists').subscribe(lists => {
       this.listsHandler.use(new Event('ADD_ALL', lists));
     });
 
-    this.http.get('http://localhost:3000/tasks').subscribe(tasks => {
+    this.http.get('http://localhost:8080/tasks').subscribe(tasks => {
       this.tasksHandler.use(new Event('ADD_ALL', tasks));
     });
 
@@ -38,7 +38,7 @@ export class TodoService {
   }
 
   addList(list: {id: string, pin: boolean}) {
-    this.http.post('http://localhost:3000/lists', list).subscribe(res => {
+    this.http.post('http://localhost:8080/lists', list).subscribe(res => {
       this.listsHandler.use(new Event('ADD', res));
     },
     err => {
@@ -47,7 +47,7 @@ export class TodoService {
   }
 
   deleteList(list: {id: string, pin: boolean}) {
-    this.http.delete(`http://localhost:3000/lists/${list.id}`).subscribe(res => {
+    this.http.delete(`http://localhost:8080/lists/${list.id}`).subscribe(res => {
       this.currentList.next(list.id === this.currentListHandler.getMass().id ? this.lists[0]
       || {id: 'mainList'} : this.currentListHandler.getMass());
       this.listsHandler.use(new Event('DELETE', list));
@@ -55,36 +55,40 @@ export class TodoService {
     err => { console.log(err); });
   }
 
-  addTask(task: {listId: string, text: string, complete: boolean}) {
-    this.http.post('http://localhost:3000/tasks', task).subscribe(res => {
+  addTask(task: any) {
+    task.list = this.currentListHandler.getMass();
+    delete task.listId;
+    this.http.post('http://localhost:8080/tasks', task).subscribe(res => {
       this.tasksHandler.use(new Event('ADD', res));
     },
     err => { console.log(err); });
   }
 
   deleteTask(task: {listId: string, id: number, text: string, complete: boolean}) {
-    this.http.delete(`http://localhost:3000/tasks/${task.id}`).subscribe(res => {
+    this.http.delete(`http://localhost:8080/tasks/${task.id}`).subscribe(res => {
       this.tasksHandler.use(new Event('DELETE', task));
     },
     err => { console.log(err); });
   }
 
-  switchComplete(task: {listId: string, id: number, text: string, complete: boolean}) {
-    this.http.put(`http://localhost:3000/tasks/${task.id}`, task).subscribe(res => {
+  switchComplete(task: any) {
+    task.list = this.currentListHandler.getMass();
+    delete task.listId;
+    this.http.put(`http://localhost:8080/tasks/${task.id}`, task).subscribe(res => {
       this.tasksHandler.use(new Event('CHANGE', res));
     },
     err => { console.log(err); });
   }
 
   changeTask(newTask: {listId: string, id: number, text: string, complete: boolean}) {
-    this.http.put(`http://localhost:3000/tasks/${newTask.id}`, newTask).subscribe(res => {
+    this.http.put(`http://localhost:8080/tasks/${newTask.id}`, newTask).subscribe(res => {
       this.tasksHandler.use(new Event('CHANGE', res));
     },
     err => { console.log(err); });
   }
 
   changeList(list: {id: string, pin: boolean}) {
-    this.http.put(`http://localhost:3000/lists/${list.id}`, list).subscribe(res => {
+    this.http.put(`http://localhost:8080/lists/${list.id}`, list).subscribe(res => {
       this.listsHandler.use(new Event('CHANGE', res));
     },
     err => { console.log(err); });

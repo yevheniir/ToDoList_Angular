@@ -8,6 +8,8 @@ export class TaskReducer implements Reducer {
         return event.payload ;
 
       case 'ADD':
+        // const newList = {...event.payload, listId: event.payload.list.id};
+        // delete newList.list;
         return [...mass, event.payload];
 
       case 'DELETE':
